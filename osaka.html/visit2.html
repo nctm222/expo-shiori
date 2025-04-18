@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カーソルで動く画像</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 300px;
+            height: 100px;
+        }
+        .image1, .image2 {
+            position: absolute;
+            transition: transform 0.1s ease;
+        }
+        .image1 {
+            width: 100%;
+            height: auto;
+        }
+        .image2 {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://ticket.expo2025.or.jp/" target="_blank">
+            <img class="image1" src="https://via.placeholder.com/300x100.png?text=チケット+購入" alt="チケット購入">
+            <img class="image2" src="https://via.placeholder.com/30x30.png?text=→" alt="arrow">
+        </a>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const image1 = document.querySelector('.image1');
+        const image2 = document.querySelector('.image2');
+
+        container.addEventListener('mousemove', (e) => {
+            const { offsetX, offsetY } = e;
+            const { clientWidth, clientHeight } = container;
+
+            // 画像1を動かす
+            const moveX1 = (offsetX / clientWidth - 0.5) * 20; // -10 to 10の範囲で動かす
+            const moveY1 = (offsetY / clientHeight - 0.5) * 20; // -10 to 10の範囲で動かす
+            image1.style.transform = `translate(${moveX1}px, ${moveY1}px)`;
+
+            // 画像2（矢印）を動かす
+            const moveX2 = (offsetX / clientWidth - 0.5) * 10; // -5 to 5の範囲で動かす
+            const moveY2 = (offsetY / clientHeight - 0.5) * 10; // -5 to 5の範囲で動かす
+            image2.style.transform = `translate(${moveX2}px, ${moveY2}px)`;
+        });
+    </script>
+</body>
+</html>
